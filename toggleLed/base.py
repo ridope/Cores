@@ -14,9 +14,27 @@ _io = [
     
 	#Leds
     ("user_led", 0, Pins("A8"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 1, Pins("A9"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 2, Pins("A10"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 3, Pins("B10"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 4, Pins("D13"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 5, Pins("C13"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 6, Pins("E14"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 7, Pins("D14"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 8, Pins("A11"), IOStandard("3.3-V LVTTL")),
+    ("user_led", 9, Pins("B11"), IOStandard("3.3-V LVTTL")),
 
-
-
+	#Switches
+    ("user_switch", 0, Pins("C10"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 1, Pins("C11"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 2, Pins("D12"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 3, Pins("C12"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 4, Pins("A12"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 5, Pins("B12"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 6, Pins("A13"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 7, Pins("A14"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 8, Pins("B14"), IOStandard("3.3-V LVTTL")),
+    ("user_switch", 9, Pins("F15"), IOStandard("3.3-V LVTTL")),
 
 ]
 
@@ -40,21 +58,18 @@ class Platform(AlteraPlatform):
 platform = Platform()
 
 # create our module (fpga description)
-class Blink(Module):
-    def __init__(self, blink_freq, sys_clk_freq, led):
+class Switch(Module):
+    def __init__(self, platform):
         counter = Signal(32)     
         # synchronous assignments
-        self.sync += [
-            counter.eq(counter + 1),
-            If(counter == int((sys_clk_freq/blink_freq)/2 - 1),
-                counter.eq(0),
-                led.eq(~led)
-            )
-        ]
+        self.sync += []
         # combinatorial assignements
-        self.comb += []
+        for i in range(10):
+            led = platform.request("user_led", i)
+            sw = platform.request("user_switch", i)
+            self.comb += led.eq(sw)	#assign led to sw
 
-module = Blink(1, 100e6, platform.request("user_led"))
+module = Switch(platform)
 
 #
 # build
