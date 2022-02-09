@@ -14,15 +14,8 @@ _io = [
     
 	#Leds
     ("user_led", 0, Pins("A8"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 1, Pins("A9"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 2, Pins("A10"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 3, Pins("B10"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 4, Pins("D13"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 5, Pins("C13"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 6, Pins("E14"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 7, Pins("D14"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 8, Pins("A11"), IOStandard("3.3-V LVTTL")),
-    ("user_led", 9, Pins("B11"), IOStandard("3.3-V LVTTL")),
+
+
 
 
 ]
