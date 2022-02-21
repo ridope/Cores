@@ -123,9 +123,8 @@ class LedDisplay(Module):
     	self.current   = current = Signal(10)
         # # #
 
-        # Value to abcd segments dictionary.
-        # Here we create a table to translate each of the 16 possible input
-        # values to abdcefg segments control.
+        
+        # values to led segments control.
     	cases = {
           0x0: current.eq(0b0000000000),
           0x1: current.eq(0b0000000001),
