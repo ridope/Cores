@@ -48,43 +48,29 @@ class SevenSegment(Module):
 class SevenSegmentDisplay(Module):
     def __init__(self, sys_clk_freq, cs_period=0.001):
         # Module's interface
-        self.values = values = Array(Signal(5) for i in range(6))  # input
-        self.abcdefg = abcdefg = Array(Signal(7)  for i in range(6)) # output
+        self.values = Signal(4)  # input
+        self.abcdefg = Signal(7)  # output
 
         # # #
 
         # Create our seven segment controller
         seven_segment = SevenSegment()
         self.submodules += seven_segment
-        self.comb += [
-        for i in range(6):
-            self.abcdefg[i].eq(seven_segment.abcdefg)
-	]
-        # Create a tick every cs_period
+
+        # Create a tick 
         self.submodules.tick = Tick(sys_clk_freq, cs_period)
-        
         # Synchronous assigment
         self.sync += [
-            # update each chip
-        for i in range(6):   
-            If(self.tick.ce,     # At the next tick:change chip
-            	abcdefg[i+1]
+        # update each chip  
+        If(self.tick.ce,     
+            seven_segment.value.eq(self.values), # At the next tick: update values
             )
         ]
-        self.comb += []
         
-        #Assign chip to value
-        cases = {                
-           abcdefg[0]   :  seven_segment.value.eq(self.values[0]), # chip 1
-           abcdefg[1]   :  seven_segment.value.eq(self.values[1]), # chip 2
-           abcdefg[2]   :  seven_segment.value.eq(self.values[2]), # chip 3
-           abcdefg[3]   :  seven_segment.value.eq(self.values[3]), # chip 4
-           abcdefg[4]   :  seven_segment.value.eq(self.values[4]), # chip 5
-           abcdefg[5]   :  seven_segment.value.eq(self.values[5]), # chip 6
-        }
-
         # Combinatorial assignement
-        self.comb += Case(value, cases)
+        self.comb += [
+            self.abcdefg.eq(seven_segment.abcdefg),
+	]
         
 
 # Main ---------------------------------------------------------------------------------------------

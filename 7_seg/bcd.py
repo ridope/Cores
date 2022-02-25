@@ -5,7 +5,7 @@ from migen.fhdl import verilog
 
 # _BCD ---------------------------------------------------------------------------------------------
 
-class _BCD(Module):
+class BCD(Module):
     def __init__(self):
         # Module's interface
         self.value    = Signal(8)  # input 
@@ -65,22 +65,8 @@ class _BCD(Module):
             self.ones.eq(ones)
         ]
 
-# BCD ----------------------------------------------------------------------------------------------
 
-class BCD(Module):
-    def __init__(self):
-        self.my_input  = Signal()  # input
-        self.my_output = Signal()  # output
 
-        # # #
-
-        # Instance of the BCD migen module
-        self.specials += Instance("bcd",
-            i_my_input=self.my_input,
-            o_my_output=self.my_output)
-
-        # -- TO BE COMPLETED ------------------------------------------------------------------------------------
-        
 	
 # Main ---------------------------------------------------------------------------------------------
 

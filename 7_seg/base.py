@@ -87,8 +87,13 @@ class Clock(Module):
         self.submodules += tick
 
         # SevenSegmentDisplay
-        display = SevenSegmentDisplay(self.sys_clk_freq)
-        self.submodules += display
+        display_sec_o = SevenSegmentDisplay(self.sys_clk_freq)
+        display_sec_t = SevenSegmentDisplay(self.sys_clk_freq)
+        display_min_o = SevenSegmentDisplay(self.sys_clk_freq)
+        display_min_t = SevenSegmentDisplay(self.sys_clk_freq)
+        display_hour_o = SevenSegmentDisplay(self.sys_clk_freq)
+        display_hour_t = SevenSegmentDisplay(self.sys_clk_freq)
+        self.submodules += display_sec_o, display_sec_t, display_min_o, display_min_t, display_hour_o, display_hour_t
         
         # Core : counts ss/mm/hh
         core = Core()
@@ -119,28 +124,28 @@ class Clock(Module):
             # Convert core seconds to bcd and connect
             # to display
             bcd_seconds.value.eq(core.seconds),
-            display.values[0].eq(bcd_seconds.ones),
-            display.values[1].eq(bcd_seconds.tens),
+            display_sec_o.values.eq(bcd_seconds.ones),
+            display_sec_t.values.eq(bcd_seconds.tens),
 
             # Convert core minutes to bcd and connect
             # to display
             bcd_minutes.value.eq(core.minutes),
-            display.values[2].eq(bcd_minutes.ones),
-            display.values[3].eq(bcd_minutes.tens),
+            display_min_o.values.eq(bcd_minutes.ones),
+            display_min_t.values.eq(bcd_minutes.tens),
 
             # Convert core hours to bcd and connect
             # to display
             bcd_hours.value.eq(core.hours),
-            display.values[4].eq(bcd_hours.ones),
-            display.values[5].eq(bcd_hours.tens),
+            display_hour_o.values.eq(bcd_hours.ones),
+            display_hour_t.values.eq(bcd_hours.tens),
             
             #Connect to pads
-            platform.request("display_seg",0).eq(~display.abcdefg[0]),
-            platform.request("display_seg",1).eq(~display.abcdefg[1]),
-            platform.request("display_seg",2).eq(~display.abcdefg[2]),
-            platform.request("display_seg",3).eq(~display.abcdefg[3]),	
-            platform.request("display_seg",4).eq(~display.abcdefg[4]),
-            platform.request("display_seg",5).eq(~display.abcdefg[5])
+            platform.request("seven_seg",0).eq(~display_sec_o.abcdefg),
+            platform.request("seven_seg",1).eq(~display_sec_t.abcdefg),
+            platform.request("seven_seg",2).eq(~display_min_o.abcdefg),
+            platform.request("seven_seg",3).eq(~display_min_t.abcdefg),	
+            platform.request("seven_seg",4).eq(~display_hour_o.abcdefg),
+            platform.request("seven_seg",5).eq(~display_hour_t.abcdefg)
                      
         ]
        
