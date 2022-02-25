@@ -15,15 +15,7 @@ _io = [
     
 	#Leds
     ("user_led", 0, Pins("A8 A9 A10 B10 D13 C13 E14 D14 A11 B11"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 1, Pins("A9"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 2, Pins("A10"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 3, Pins("B10"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 4, Pins("D13"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 5, Pins("C13"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 6, Pins("E14"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 7, Pins("D14"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 8, Pins("A11"), IOStandard("3.3-V LVTTL")),
-    #("user_led", 9, Pins("B11"), IOStandard("3.3-V LVTTL")),
+
 
 	#Switches
     ("user_switch", 0, Pins("C10"), IOStandard("3.3-V LVTTL")),
@@ -97,7 +89,7 @@ class UserButtonPress(Module):
 class Counter(Module):
     def __init__(self):
     
-    	self.count = Signal()    
+    	self.count = Signal(4)    
         
         # Set interface
     	self.inc_count = Signal()
@@ -109,7 +101,10 @@ class Counter(Module):
     	self.sync += [
             # Increment count
             If(self.inc_count,
-                self.count.eq(self.count + 1)
+                self.count.eq(self.count + 1),
+                If(self.count == 10,
+                    self.count.eq(0)
+                )
             # Decrement count
             ).Elif(self.dec_count,
                 self.count.eq(self.count - 1)
@@ -118,32 +113,32 @@ class Counter(Module):
 
 class LedDisplay(Module):
     def __init__(self):
-        # Module's interface
-    	self.value   = value = Signal(4)   
-    	self.current   = current = Signal(10)
+    	# Module's interface
+    	i=10
+    	#input
+    	self.value = value = Signal(4) 
+    	#Output  
+    	self.current = current = Signal(10)    	    	
+    	
+    	#table of Led values
+    	table_values = Array(Signal(10) for a in range(i)) 
+    	#Assignment 
+    	self.comb += [
+    	table_values[0].eq(0b0000000001),
+    	table_values[1].eq(0b0000000011), 
+    	table_values[2].eq(0b0000000111), 
+    	table_values[3].eq(0b0000001111), 
+    	table_values[4].eq(0b0000011111), 
+    	table_values[5].eq(0b0000111111), 
+    	table_values[6].eq(0b0001111111), 
+    	table_values[7].eq(0b0011111111), 
+    	table_values[8].eq(0b0111111111), 
+    	table_values[9].eq(0b1111111111)
+    	]
         # # #
 
-        # Value to abcd segments dictionary.
-        # Here we create a table to translate each of the 16 possible input
-        # values to abdcefg segments control.
-    	cases = {
-          0x0: current.eq(0b0000000000),
-          0x1: current.eq(0b0000000001),
-          0x2: current.eq(0b0000000011),
-          0x3: current.eq(0b0000000111),
-          0x4: current.eq(0b0000001111),
-          0x5: current.eq(0b0000011111),
-          0x6: current.eq(0b0000111111),
-          0x7: current.eq(0b0001111111),
-          0x8: current.eq(0b0011111111),
-          0x9: current.eq(0b0111111111),
-          0xa: current.eq(0b1111111111),
-          
-
-        }
-
         # Combinatorial assignement
-    	self.comb += Case(value, cases)
+    	self.comb += current.eq(table_values[value])
         
 class Button(Module):
     
@@ -167,12 +162,13 @@ class Button(Module):
     	counter.dec_count.eq(user_btn_l.rising),
         
     	display.value.eq(counter.count),
- 	
+ 	#Connect to pads
 	platform.request("user_led").eq(display.current)
         ]
        
 
-
+#Create table which takes index as count signal
+#signal(10) for Leds  where s.eq(table[i])
 module = Button(platform)
 
 #
