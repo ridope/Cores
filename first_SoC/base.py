@@ -9,10 +9,9 @@ from litex.build.altera.programmer import USBBlaster
 from litex.soc.integration.soc_core import *
 from litex.soc.integration.builder import *
 from litex.soc.cores.uart import UARTWishboneBridge
-from litex.soc.cores import dna, xadc
 from litex.soc.cores.spi import SPIMaster
 
-from ios import Led, RGBLed, Button, Switch
+from ios import Led, Button, Switch
 from display import *
 
 # IOs ----------------------------------------------------------------------------------------------
@@ -72,31 +71,8 @@ _io = [
         IOStandard("3.3-V LVTTL")
     ),
 
-    ("vga_out", 0,
-        Subsignal("hsync_n", Pins("N3")),
-        Subsignal("vsync_n", Pins("N1")),
-        Subsignal("r", Pins("AA1 V1 Y2 Y1")),
-        Subsignal("g", Pins("W1 T2 R2 R1")),
-        Subsignal("b", Pins("P1 T1 P4 N2")),
-        IOStandard("3.3-V LVTTL")
-    ),
-
-	#SDRAM
-    ("sdram_clock", 0, Pins("L14"), IOStandard("3.3-V LVTTL")),
-    ("sdram", 0,
-        Subsignal("a", Pins("U17 W19 V18 U18 U19 T18 T19 R18 P18 P19 T20 P20 R20")),
-        Subsignal("ba", Pins("T21 T22")),
-        Subsignal("cs_n", Pins("U20")),
-        Subsignal("cke", Pins("N22")),
-        Subsignal("ras_n", Pins("U22")),
-        Subsignal("cas_n", Pins("U21")),
-        Subsignal("we_n", Pins("V20")),
-        Subsignal("dq", Pins("Y21 Y20 AA22 AA21 Y22 W22 W20 V21 P21 J22 H21 H22 G22 G20 G19 F22")),
-        Subsignal("dm", Pins("V22 J21")),
-        IOStandard("3.3-V LVTTL")
-    ),
-
-    ("accelerometer", 0,
+	#Accelerometer
+    ("adxl362_spi", 0,
         Subsignal("int1", Pins("Y14")),
         Subsignal("int1", Pins("Y13")),
         Subsignal("mosi", Pins("V11")),
@@ -134,20 +110,10 @@ class BaseSoC(SoCMini):
         SoCMini.__init__(self, platform, sys_clk_freq, csr_data_width=32,
             ident="My first LiteX System On Chip", ident_version=True)
 
-        # Clock Reset Generation
-        #self.submodules.crg = CRG(platform.request("clk50"), ~platform.request("cpu_reset"))
-
         # No CPU, use Serial to control Wishbone bus
         self.submodules.serial_bridge = UARTWishboneBridge(platform.request("serial"), sys_clk_freq)
         self.add_wb_master(self.serial_bridge.wishbone)
 
-        # FPGA identification
-        self.submodules.dna = dna.DNA()
-        self.add_csr("dna")
-
-        # FPGA Temperature/Voltage
-        self.submodules.xadc = xadc.XADC()
-        self.add_csr("xadc")
 
         # Led
         user_leds = Cat(*[platform.request("user_led", i) for i in range(9)])
@@ -164,16 +130,12 @@ class BaseSoC(SoCMini):
         self.submodules.buttons = Button(user_buttons)
         self.add_csr("buttons")
 
-        # RGB Led
-        self.submodules.rgbled  = RGBLed(platform.request("vga_out",  0))
-        self.add_csr("rgbled")
-
         # Accelerometer
-        self.submodules.accel = SPIMaster(platform.request("accelerometer"),
+        self.submodules.accel = SPIMaster(platform.request("adxl362_spi"),
             data_width   = 32,
             sys_clk_freq = sys_clk_freq,
             spi_clk_freq = 1e6)
-        self.add_csr("accel")
+        self.add_csr("adxl362") 
 
         # SevenSegmentDisplay
         self.submodules.display0 = SevenSegmentDisplay0(sys_clk_freq)
