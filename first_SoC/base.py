@@ -72,7 +72,7 @@ _io = [
     ),
 
 	#Accelerometer
-    ("adxl362_spi", 0,
+    ("accel", 0,
         Subsignal("int1", Pins("Y14")),
         Subsignal("int1", Pins("Y13")),
         Subsignal("mosi", Pins("V11")),
@@ -131,11 +131,11 @@ class BaseSoC(SoCMini):
         self.add_csr("buttons")
 
         # Accelerometer
-        self.submodules.accel = SPIMaster(platform.request("adxl362_spi"),
+        self.submodules.accel = SPIMaster(platform.request("accel"),
             data_width   = 32,
             sys_clk_freq = sys_clk_freq,
             spi_clk_freq = 1e6)
-        self.add_csr("adxl362") 
+        self.add_csr("accel") 
 
         # SevenSegmentDisplay
         self.submodules.display0 = SevenSegmentDisplay0(sys_clk_freq)
