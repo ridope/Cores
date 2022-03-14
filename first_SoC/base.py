@@ -12,6 +12,7 @@ from litex.soc.cores.uart import UARTWishboneBridge
 from litex.soc.cores.spi import SPIMaster
 
 from ios import Led, Button, Switch
+from test_leds_sw import SwitchLed
 from display import *
 
 # IOs ----------------------------------------------------------------------------------------------
@@ -116,14 +117,13 @@ class BaseSoC(SoCMini):
 
 
         # Led
-        user_leds = Cat(*[platform.request("user_led", i) for i in range(9)])
-        self.submodules.leds = Led(user_leds)
-        self.add_csr("leds")
-
+        user_leds = Cat(*[platform.request("user_led", i) for i in range(10)])
         # Switches
-        user_switches = Cat(*[platform.request("user_sw", i) for i in range(9)])
-        self.submodules.switches = Switch(user_switches)
-        self.add_csr("switches")
+        user_switches = Cat(*[platform.request("user_sw", i) for i in range(10)])
+        
+        self.submodules.leds_sw = SwitchLed(user_leds, user_switches)   
+        self.add_csr("leds_sw")
+        
 
         # Buttons
         user_buttons = Cat(*[platform.request("user_btn", i) for i in range(1)])
