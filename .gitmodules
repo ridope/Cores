@@ -13,7 +13,7 @@
 	path = LiteXDir/litex
 	url = https://github.com/enjoy-digital/litex.git
 	branch = 2021.12
-	ignore = dirty
+	ignore = untracked
 [submodule "LiteXDir/liteeth"]
 	path = LiteXDir/liteeth
 	url = https://github.com/enjoy-digital/liteeth.git
