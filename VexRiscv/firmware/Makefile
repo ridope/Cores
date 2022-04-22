@@ -3,12 +3,15 @@ BUILD_DIR=../build/
 include $(BUILD_DIR)/software/include/generated/variables.mak
 include $(SOC_DIRECTORY)/software/common.mak
 
+DEPFLAGS+=-DPICOLIBC_FLOAT_PRINTF_SCANF
+
 OBJECTS=isr.o main.o
 
 all: firmware.bin
 
 # pull in dependency info for *existing* .o files
 -include $(OBJECTS:.o=.d)
+
 
 %.bin: %.elf
 	$(OBJCOPY) -O binary $< $@
