@@ -13,6 +13,7 @@
 	path = LiteXDir/litex
 	url = https://github.com/enjoy-digital/litex.git
 	branch = 2021.12
+	ignore = untracked
 [submodule "LiteXDir/liteeth"]
 	path = LiteXDir/liteeth
 	url = https://github.com/enjoy-digital/liteeth.git
@@ -64,6 +65,7 @@
 [submodule "LiteXDir/pythondata-misc-usb_ohci"]
 	path = LiteXDir/pythondata-misc-usb_ohci
 	url = https://github.com/litex-hub/pythondata-misc-usb_ohci.git
+	ignore = dirty
 [submodule "LiteXDir/pythondata-cpu-lm32"]
 	path = LiteXDir/pythondata-cpu-lm32
 	url = https://github.com/litex-hub/pythondata-cpu-lm32.git
