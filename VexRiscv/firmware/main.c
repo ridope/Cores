@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include <irq.h>
 #include <uart.h>
 #include <console.h>
 #include <generated/csr.h>
+
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#define MAX(X, Y) (((X) < (Y)) ? (Y) : (X))
 
 static char *readstr(void)
 {
@@ -74,13 +78,115 @@ static void help(void)
 	puts("display                         - display test");
 	puts("led                             - led test");
 	puts("lkr                             - led knight rider test");
-	puts("fill                            - led fill up test");
 	puts("clock                           - clock demo");
+	puts("conv                            - 1D convolution test");
+	puts("float                           - float test");
+	puts("double                          - double test");
 }
 
 static void reboot(void)
 {
 	ctrl_reset_write(1);
+}
+static void convolve_test(void)
+{
+	//Configure timer
+	timer0_en_write(0);
+	timer0_load_write(5);
+	timer0_en_write(1);
+	
+	//Value definition
+	float g[] = {1.0, 2.0, 1.0, 3.0, 1.0, 1.0};
+	float f[] = {1.0, 1.0, 2.0, 4.0, 1.0, 1.0};
+	int len_g = sizeof g/ sizeof (g[0]);
+	int len_f = sizeof f/ sizeof (f[0]);
+	int len_c = len_g+len_f-1;
+  	
+  	int i,j,l;
+	//Alocate space
+  	float *r = (float*) calloc(len_c, sizeof(float));
+
+  	for (i=0; i<len_c; i++){
+  		l=i;
+
+   		for(j=0; j<len_f; j++){
+   			if(l>=0 && l<len_g){
+				r[i] += r[i] + g[l]*f[j]; 
+				l=l-1;
+			}
+		}
+		printf("%0.f ",r[i]);
+  	}
+  	puts("");
+  	free(r);
+  	//Print timer value
+  	timer0_update_value_write(1);
+	printf("%.5f\n", timer0_value_read());
+	  
+}
+/*-----------------------------------------------------------------------*/
+/* quadratic function using double values                                */
+/*-----------------------------------------------------------------------*/
+static void double_test(void){
+	//Configure timer
+	timer0_en_write(0);
+	timer0_load_write(5);
+	timer0_en_write(1);
+	
+	//Value definition
+	double a, b, c;
+	a=1.0;
+	b=1.0;
+	c=1.0;
+	printf("%.f\t%.f\n", a, b);
+	int i;
+	//loop over quadratic function
+	for(i=0; i<20; i++) {
+        	double d = sqrt(b*b - 4.0*a*c);
+        	double r1 = (-b + d) / (2.0*a);
+        	double r2 = (-b - d) / (2.0*a);
+        	printf("%.5f\t%.5f\n", r1, r2);
+        	//Update values
+        	a = a*r1;
+        	b = b*r1;
+        	c = c*r1;
+	}
+	//Print timer value
+	timer0_update_value_write(1);
+	printf("%.5f\n", timer0_value_read());
+}
+
+/*-----------------------------------------------------------------------*/
+/* quadratic function using float values                                 */
+/*-----------------------------------------------------------------------*/
+static void float_test(void){
+	printf("float_test...\n");
+	//Configure timer
+	timer0_en_write(0);
+	timer0_load_write(5);
+	timer0_en_write(1);
+	
+	//Value definition
+	float a, b, c;
+	a=1.0;
+	b=1.0;
+	c=1.0;
+	printf("%.f\t%.f\n", a, b);
+	int i;
+	//loop over quadratic function
+	for(i=0; i<10; i++) {
+        	float d = sqrtf(b*b - 4.0*a*c);
+        	float r1 = (-b + d) / (2.0*a);
+        	float r2 = (-b - d) / (2.0*a);
+        	printf("%.4f\t%.4f\n", r1, r2);
+        	//Update values
+        	a = a*r1;
+        	b = b*r1;
+        	c = c*r1;
+	}
+	//Print timer value
+	timer0_update_value_write(1);
+	printf("%.5f\n", timer0_value_read());
 }
 
 static void display_test(void)
@@ -238,19 +344,6 @@ static void led_test(void)
 }
 
 
-static void fillup_test(void)
-{
-	int i, j;
-	printf("Led fill up test...\n");
-	for(i=0; i<=512; i++) {
-		leds_out_write(i);
-		busy_wait(1);
-		for(j=512; j>=0; j--) {
-			leds_out_write(i);
-			busy_wait(1);
-		}
-	}
-}
 
 static void rider_test(void)
 {	
@@ -336,10 +429,16 @@ static void console_service(void)
 		led_test();
 	else if(strcmp(token, "lkr") == 0)
 		rider_test();
-	else if(strcmp(token, "fill") == 0)
-		fillup_test();
 	else if(strcmp(token, "clock") == 0)
 		clock_test();
+	else if(strcmp(token, "conv") == 0)
+		convolve_test;	
+	else if(strcmp(token, "float") == 0)
+		float_test;
+	else if(strcmp(token, "double") == 0)
+		double_test;
+	
+		
 	prompt();
 }
 
@@ -351,7 +450,7 @@ int main(void)
 #endif
 	uart_init();
 
-	puts("\nLab004 - CPU testing software built "__DATE__" "__TIME__"\n");
+	puts("\nCPU testing software built "__DATE__" "__TIME__"\n");
 	help();
 	prompt();
 

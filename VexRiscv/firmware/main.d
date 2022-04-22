@@ -24,6 +24,9 @@ main.o: main.c \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/string.h \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/strings.h \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/sys/string.h \
+ /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/math.h \
+ /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/ieeefp.h \
+ /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/machine/math.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/system.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/csr-defs.h \
@@ -82,6 +85,12 @@ main.o: main.c \
 /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/strings.h:
 
 /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/sys/string.h:
+
+/home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/math.h:
+
+/home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/ieeefp.h:
+
+/home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/machine/math.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h:
 
