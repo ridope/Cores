@@ -5,7 +5,7 @@ include $(SOC_DIRECTORY)/software/common.mak
 
 DEPFLAGS+=-DPICOLIBC_FLOAT_PRINTF_SCANF
 
-OBJECTS=isr.o main.o
+OBJECTS=isr.o main.o conv_img.o load_image.o
 
 all: firmware.bin
 

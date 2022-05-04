@@ -9,9 +9,7 @@
 float get_pixel(image im, int x, int y, int c)
 {       
 	//pixel array has a total number of elements equaling WIDTH * HEIGHT * channels
-	float total_e = im.w*im.h*c;
-	float loc = x+y*im.w;
-	float pix = im.data[total_e+loc];
+	float pix = im.data[im.w*im.h*c+x+y*im.w];
 	
 	return pix;
 }
@@ -25,11 +23,11 @@ void clamp_image(image im)
 {
 	for(int c=0; c<im.c; c++){
 		for(int y=0; y<im.h; y++){
-	    			for(int x=0; x<im.w; x++){
-	    			If(get_pixel(im, im.x, im.y, im.c)<0)
-	    				set_pixel(im, im.x, im.y, im.c, 0);
-	    			else if(get_pixel(im, im.x, im.y, im.c)>255)
-	    				set_pixel(im, im.x, im.y, im.c, 255);
+	    		for(int x=0; x<im.w; x++){
+	    			if(get_pixel(im, x, y, c)<0)
+	    				set_pixel(im, x, y, c, 0);
+	    			else if(get_pixel(im, x, y, c)>1)
+	    				set_pixel(im, x, y, c, 1);
 	    			}
 	    	}
 	}
@@ -52,10 +50,10 @@ image new_filter(int w)
 	// new square filter 
 	image flr = make_image(w,w,1);
 	// fill filter
-	for(int c=0; c<im.c; c++){
-		for(int y=0; y<im.h; y++){
-	    		for(int x=0; x<im.w; x++){	
-	    			set_pixel(flr, x, y, 1, 1.0); // 1/N*M
+	for(int c=0; c<flr.c; c++){
+		for(int y=0; y<flr.h; y++){
+	    		for(int x=0; x<flr.w; x++){	
+	    			set_pixel(flr, x, y, 1, 1); // 1/N*M
 	    		}
 	    	}
 	}        
@@ -82,10 +80,11 @@ image convolve_image(image im, image filter)
         	                	new_v += get_pixel(im, filterw, filterh, c) * flr_v;
                     		}
                 	}
-              		new_im.data[im.h*im.w*c + x + y*im.w] = new_v;
+              		set_pixel(new_im, x, y, c, new_v);
 			}
 		}
 	}
+	return new_im;
 	
 
 }
