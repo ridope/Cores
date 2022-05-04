@@ -10,7 +10,6 @@ from litex.soc.integration.soc_core import *
 from litex.soc.integration.builder import *
 from litex.soc.cores.uart import UARTWishboneBridge
 from litex.soc.cores.spi import SPIMaster
-from litex.soc.cores.timer import *
 
 from ios import Led, Button, Switch
 from display import *
@@ -93,12 +92,10 @@ class BaseSoC(SoCMini):
             cpu_type                 = "vexriscv",
             clk_freq                 = 50e6,
             ident                    = "LiteX CPU Test SoC", ident_version=True,
-            integrated_rom_size      = 0x8000,
-            integrated_main_ram_size = 0x4000)
+            integrated_rom_size      = 0x10000,
+            integrated_main_ram_size = 0x10000)
+        self.cpu.with_timer=True
             
-        # Timer
-        self.submodules.timer = Timer()
-        self.add_csr("timer")
 
         # Led
         user_leds = Cat(*[platform.request("user_led", i) for i in range(10)])
