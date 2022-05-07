@@ -26,21 +26,21 @@ void clamp_image(image im)
 	    		for(int x=0; x<im.w; x++){
 	    			if(get_pixel(im, x, y, c)<0)
 	    				set_pixel(im, x, y, c, 0);
-	    			else if(get_pixel(im, x, y, c)>1)
-	    				set_pixel(im, x, y, c, 1);
+	    			else if(get_pixel(im, x, y, c)>255)
+	    				set_pixel(im, x, y, c, 255);
 	    			}
 	    	}
 	}
 	    			    		
 }
 
+
 void normalize(image im)
 {
-    //
 	for(int c=0; c<im.c; c++){
 		for(int y=0; y<im.h; y++){
 	    		for(int x=0; x<im.w; x++){
-	    			set_pixel(im, x, y, c, get_pixel(im, x, y, c)/(im.w*im.h));  // 1/N*M
+	    			set_pixel(im, x, y, c, get_pixel(im, x, y, c)/(im.h*im.w));  // 1/N*M
 	    		}
 	    	}
 	 }
@@ -50,10 +50,11 @@ image new_filter(int w)
 	// new square filter 
 	image flr = make_image(w,w,1);
 	// fill filter
-	for(int c=0; c<flr.c; c++){
-		for(int y=0; y<flr.h; y++){
-	    		for(int x=0; x<flr.w; x++){	
-	    			set_pixel(flr, x, y, 1, 1); // 1/N*M
+	for(int z=0; z<flr.c; z++){
+		for(int y=0; y<w; y++){
+	    		for(int x=0; x<w; x++){	
+	    			int v = 1;
+            			set_pixel(flr, x, y, z, v);
 	    		}
 	    	}
 	}        
@@ -68,19 +69,19 @@ image convolve_image(image im, image filter)
 	for(int c=0; c<im.c; c++){
 		for(int y=0; y<im.h; y++){
 	    		for(int x=0; x<im.w; x++){
-                	float new_v = 0;
-                	for (int fh = 0; fh < filter.h; fh++) {                   		
-                    		for (int fw = 0; fw < filter.w; fw++) {
+                		float new_v = 0;
+                		for (int fh = 0; fh < filter.h; fh++) {                   		
+                    			for (int fw = 0; fw < filter.w; fw++) {
                     		
-        	                	float flr_v = filter.data[filter.w*filter.h*(filter.c-1)*c + fh*filter.w + fw];
+        	               	 	float flr_v = filter.data[filter.w*filter.h*(filter.c-1)*c + fh*filter.w + fw];
         	                	
-        	                	int filterw = x - filter.w / 2 + fw;
-        	                	int filterh = y - filter.h / 2 + fh;
-        	                	
-        	                	new_v += get_pixel(im, filterw, filterh, c) * flr_v;
-                    		}
-                	}
-              		set_pixel(new_im, x, y, c, new_v);
+        	               	 	int filterw = x - filter.w/2 + fw;
+        	               	 	int filterh = y - filter.h/2 + fh;
+        	               	 	
+        	               	 	new_v += get_pixel(im, filterw, filterh, c) * flr_v;
+                    			}
+                		}
+              			set_pixel(new_im, x, y, c, new_v);
 			}
 		}
 	}

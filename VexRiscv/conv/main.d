@@ -38,14 +38,13 @@ main.o: main.c \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/sys/_timespec.h \
  conv_img.h \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/assert.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/system.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/csr-defs.h \
- /home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h \
- /home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/irq.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/console.h \
+ /home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h \
+ /home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/system.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/console.h
 
@@ -127,21 +126,19 @@ conv_img.h:
 
 /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/assert.h:
 
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/system.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/csr-defs.h:
-
-/home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h:
-
-/home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h:
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/irq.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/console.h:
+
+/home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h:
+
+/home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h:
+
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/system.h:
+
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h:
 

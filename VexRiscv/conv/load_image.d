@@ -29,19 +29,13 @@ load_image.o: load_image.c \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/ieeefp.h \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/machine/math.h \
  /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/assert.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/system.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/csr-defs.h \
- /home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h \
- /home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h \
- /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/irq.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h \
  /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/console.h \
- stb_image.h \
- /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/limits.h \
- /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/sys/syslimits.h \
- /home/mcassidy/Cores/LiteXDir/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/lib/gcc/riscv64-unknown-elf/8.3.0/include-fixed/limits.h \
- stb_image_write.h
+ /home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h \
+ /home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/system.h \
+ /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h
 
 /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/tinystdio/stdio.h:
 
@@ -103,28 +97,16 @@ conv_img.h:
 
 /home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/assert.h:
 
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/irq.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/system.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/vexriscv/csr-defs.h:
-
-/home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h:
-
-/home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h:
-
-/home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h:
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/irq.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/uart.h:
 
 /home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/libbase/console.h:
 
-stb_image.h:
+/home/mcassidy/Cores/VexRiscv/build/software/include/generated/csr.h:
 
-/home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/limits.h:
+/home/mcassidy/Cores/VexRiscv/build/software/include/generated/soc.h:
 
-/home/mcassidy/Cores/LiteXDir/pythondata-software-picolibc/pythondata_software_picolibc/data/newlib/libc/include/sys/syslimits.h:
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/cores/cpu/femtorv/system.h:
 
-/home/mcassidy/Cores/LiteXDir/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/lib/gcc/riscv64-unknown-elf/8.3.0/include-fixed/limits.h:
-
-stb_image_write.h:
+/home/mcassidy/Cores/LiteXDir/litex/litex/soc/software/include/hw/common.h:

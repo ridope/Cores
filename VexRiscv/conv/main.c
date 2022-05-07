@@ -133,13 +133,13 @@ static void conv_img(void)
 	timer0_update_value_write(1);
     	int start = timer0_value_read();
 
-	image im = load_image("img/pix.jpg");
-	image flr = new_filter(7); //normalised filter
+	image im = load_image(20, 20, 1);
+	image flr = new_filter(2); //normalised filter
 	//Convolve
 	image c_img = convolve_image(im, flr);
 
 	clamp_image(c_img);
-	save_png(c_img, "img/pix.png");
+	print_matrix(c_img);
 	free_image(c_img);
 	
 	//Print timer value

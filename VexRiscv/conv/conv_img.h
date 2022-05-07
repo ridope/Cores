@@ -24,11 +24,8 @@ typedef struct{
 // Loading and saving
 image make_empty_image(int w, int h, int c);
 image make_image(int w, int h, int c);
-void save_image_stb(image im, const char *name, int png);
-void save_png(image im, const char *name);
-void save_image(image im, const char *name);
-image load_image_stb(char *filename, int channels);
-image load_image(char *filename);
+image load_image(int w, int h, int c);
+void print_matrix(image mat);
 void free_image(image im);
 
 // Basic operations

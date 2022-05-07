@@ -94,7 +94,7 @@ class BaseSoC(SoCMini):
             ident                    = "LiteX CPU Test SoC", ident_version=True,
             integrated_rom_size      = 0x10000,
             integrated_main_ram_size = 0x10000)
-        self.cpu.with_timer=True
+        #self.cpu.with_timer=True
             
 
         # Led
