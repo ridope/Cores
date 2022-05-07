@@ -56,6 +56,7 @@ void print_matrix(image mat)
     }
 
 }
+
 void free_image(image im)
 {
     free(im.data);

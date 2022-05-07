@@ -45,6 +45,7 @@ void normalize(image im)
 	    	}
 	 }
 }
+
 image new_filter(int w)
 {
 	// new square filter 
