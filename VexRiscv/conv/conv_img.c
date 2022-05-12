@@ -73,12 +73,14 @@ image convolve_image(image im, image filter)
                 		float new_v = 0;
                 		for (int fh = 0; fh < filter.h; fh++) {                   		
                     			for (int fw = 0; fw < filter.w; fw++) {
-                    		
-        	               	 	float flr_v = filter.data[filter.w*filter.h*(filter.c-1)*c + fh*filter.w + fw];
-        	                	
+                    				//retrieve filter pixel
+        	               	 	float flr_v = filter.data[filter.w*filter.h*filter.c + fh*filter.w + fw];
+        	               	 	
+        	                		//find location of pixel
         	               	 	int filterw = x - filter.w/2 + fw;
         	               	 	int filterh = y - filter.h/2 + fh;
         	               	 	
+        	               	 	//retrieve image pixel and do sum of multiplied pixels
         	               	 	new_v += get_pixel(im, filterw, filterh, c) * flr_v;
                     			}
                 		}

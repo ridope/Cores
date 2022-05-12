@@ -89,12 +89,13 @@ class BaseSoC(SoCMini):
 
         # SoC with CPU
         SoCCore.__init__(self, platform,
-            cpu_type                 = "vexriscv",
+            cpu_type                 = "vexriscv", #change for other cores
             clk_freq                 = 50e6,
             ident                    = "LiteX CPU Test SoC", ident_version=True,
             integrated_rom_size      = 0x10000,
+            integrated_sram_size     = 0x10000,
             integrated_main_ram_size = 0x10000)
-        #self.cpu.with_timer=True
+        self.cpu.with_timer=True
             
 
         # Led

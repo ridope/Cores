@@ -82,6 +82,7 @@ static void reboot(void)
 {
 	ctrl_reset_write(1);
 }
+
 static void convolve_test(void)
 {
 	//Configure timer
@@ -93,15 +94,15 @@ static void convolve_test(void)
 
 	
 	//Value definition
-	float g[] = {1.0, 1.0, 1.0, 1.0, 1.0, 2.0};
-	float f[] = {1.0, 1.0, 1.0, 1.0, 1.0, 2.0};
+	int g[] = {1, 3, 1, 1, 1, 2, 1, 1, 1, 1, 4, 2, 2, 1, 1, 1, 2, 1, 2, 5};
+	int f[] = {1, 1, 2, 2, 1, 2, 1, 3, 1, 2, 1, 2, 2, 1, 1, 1, 2, 1, 2, 3};
 	int len_g = sizeof g;
 	int len_f = sizeof f;
 	int len_c = len_g+len_f-1;
   	
   	int i,j,l;
 	//Alocate space
-  	float *r = (float*) calloc(len_c, sizeof(float));
+  	int *r = (int*) calloc(len_c, sizeof(int));
 
   	for (i=0; i<len_c; i++){
   		l=i;
@@ -111,7 +112,10 @@ static void convolve_test(void)
 				l=l-1;
 			}
 		}
-		printf("%d ",r[i]);
+		
+  	}
+  	for (i=0; i<len_c; i++){
+  	printf("%d ",r[i]);
   	}
   	puts("");
   	free(r);
@@ -133,7 +137,7 @@ static void conv_img(void)
     	int start = timer0_value_read();
 
 	image im = load_image(20, 20, 1);
-	image flr = new_filter(2); //normalised filter
+	image flr = new_filter(7); //normalised filter
 	//Convolve
 	image c_img = convolve_image(im, flr);
 
@@ -160,9 +164,9 @@ static void console_service(void)
 	if(strcmp(token, "help") == 0)
 		help();
 	else if(strcmp(token, "reboot") == 0)
-		reboot();
+		reboot();	
 	else if(strcmp(token, "conv") == 0)
-		convolve_test();	
+		convolve_test();
 	else if(strcmp(token, "img") == 0)
 		conv_img();
 			

@@ -83,6 +83,7 @@ static void reboot(void)
 	ctrl_reset_write(1);
 }
 
+
 /*-----------------------------------------------------------------------*/
 /* quadratic function using double values                                */
 /*-----------------------------------------------------------------------*/
@@ -103,9 +104,9 @@ static void double_test(void){
 	int i;
 	//loop over quadratic function
 	for(i=0; i<100; i++) {
-        	double d = (double)sqrt((b*b + 4.0*a*c));
-        	double r1 = (b + d) / (2.0*a);
-        	double r2 = (b + d) / (a);
+        	double d = (double)sqrt((b*b - 4.0*a*c));
+        	double r1 = (-b + d) / (2.0*a);
+        	double r2 = (-b - d) / (2.0*a);
         	printf("%d\t%d\t%d\n", r1, r2, d);
         	//Update values
         	a = a*r1;
@@ -139,9 +140,9 @@ static void float_test(void){
 	int i;
 	//loop over quadratic function
 	for(i=0; i<100; i++) {
-        	float d = (float)sqrt(b*b + 4.0*a*c);
-        	float r1 = (float)(b + d) / (2.0*a);
-        	float r2 = (float)(b + d) / (2.0*a);
+        	float d = (float)sqrt(b*b - 4.0*a*c);
+        	float r1 = (float)(-b + d) / (2.0*a);
+        	float r2 = (float)(-b - d) / (2.0*a);
         	printf("%d\t%d\t%d\n", r1, r2);
         	//Update values
         	a = a*r1;
